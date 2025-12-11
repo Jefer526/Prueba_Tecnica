@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Consulta de Clientes - Rios del Desierto SAS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Sistema de Consulta de Clientes</h1>
+            <p>Rios del Desierto SAS - Equipo SAC</p>
+        </header>
+
+        <!-- Sección de Clientes Disponibles -->
+        <section class="clientes-disponibles">
+            <div class="section-header">
+                <h2>👥 Clientes Disponibles para Prueba</h2>
+                <button onclick="cargarListaClientes()" class="btn-refresh" title="Recargar lista">
+                    🔄
+                </button>
+            </div>
+            <div id="listaClientesContainer">
+                <p class="loading-text">Cargando clientes...</p>
+            </div>
+        </section>
+
+        <!-- Formulario de Búsqueda -->
+        <section class="search-section">
+            <h2>Buscar Cliente</h2>
+            <form id="searchForm">
+                <div class="form-group">
+                    <label for="tipoDocumento">Tipo de Documento:</label>
+                    <select id="tipoDocumento" name="tipoDocumento" required>
+                        <option value="">Seleccione...</option>
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="NIT">NIT</option>
+                        <option value="PA">Pasaporte</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="numeroDocumento">Número de Documento:</label>
+                    <input 
+                        type="text" 
+                        id="numeroDocumento" 
+                        name="numeroDocumento" 
+                        placeholder="Ej: 1234567890" 
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary">🔎 Buscar</button>
+            </form>
+        </section>
+
+        <!-- Mensaje de Error -->
+        <div id="errorMessage" class="error-message" style="display: none;"></div>
+
+        <!-- Resultados -->
+        <section id="resultSection" class="result-section" style="display: none;">
+            <h2>Información del Cliente</h2>
+            
+            <!-- Datos del Cliente -->
+            <div class="client-info">
+                <h3>📋 Datos Básicos</h3>
+                <table class="info-table">
+                    <tr>
+                        <td><strong>Tipo de Documento:</strong></td>
+                        <td id="clienteTipoDoc"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Número de Documento:</strong></td>
+                        <td id="clienteNumDoc"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Nombre Completo:</strong></td>
+                        <td id="clienteNombre"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Correo:</strong></td>
+                        <td id="clienteCorreo"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teléfono:</strong></td>
+                        <td id="clienteTelefono"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fecha de Registro:</strong></td>
+                        <td id="clienteFechaRegistro"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Resumen de Compras -->
+            <div class="purchase-summary">
+                <h3>🛒 Resumen de Compras</h3>
+                <div class="summary-cards">
+                    <div class="summary-card">
+                        <p class="card-label">Total de Compras</p>
+                        <p class="card-value" id="totalCompras">$0</p>
+                    </div>
+                    <div class="summary-card">
+                        <p class="card-label">Número de Compras</p>
+                        <p class="card-value" id="numeroCompras">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Compras -->
+            <div class="purchases-table">
+                <h3>📊 Historial de Compras</h3>
+                <table id="comprasTable">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Descripción</th>
+                            <th>Monto</th>
+                            <th>Factura</th>
+                        </tr>
+                    </thead>
+                    <tbody id="comprasTableBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Botones de Exportación -->
+            <div class="export-buttons">
+                <button onclick="exportarCliente('csv')" class="btn btn-secondary">
+                    📄 Exportar CSV
+                </button>
+                <button onclick="exportarCliente('excel')" class="btn btn-secondary">
+                    📊 Exportar Excel
+                </button>
+            </div>
+        </section>
+
+        <!-- Botón de Reporte de Fidelización -->
+        <section class="fidelizacion-section">
+            <h2>🏆 Reporte de Fidelización</h2>
+            <p>Genera un reporte Excel con clientes que superan $5,000,000 COP en el último mes</p>
+            <button onclick="generarReporteFidelizacion()" class="btn btn-success">
+                📥 Descargar Reporte de Fidelización
+            </button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
